@@ -3,7 +3,7 @@
 export type LikeState = {
     liked: boolean,
     bubble?: boolean,
-    error?: string
+    error?: string | boolean
   }
  export const setLikedAction = async (
     state: LikeState, 

@@ -18,16 +18,9 @@ export default function FavoriteButton({
   const initLikeState: LikeState = { liked: false, bubble: false };
   const handleLike = () => {
     if (isPending) return; // debounce
-      updateOptiState({ liked: !state.liked }); // Update optimistic state immediately
-      setState({
-        liked: !state.liked,
-        error: isToggled ? 'Simulated Error' : undefined // TODO: this is only for testing, remove it
-      }); 
-      if (!state.liked) { // Clear bubble animation after it completes
-        setTimeout(() => {
-          updateOptiState({ liked: !state.liked });
-        }, 600);
-      }
+    updateOptiState({ liked: !state.liked }); // Update optimistic state immediately
+    setState({liked: !state.liked, error: isToggled && 'Simulated Error'}); //TODO: remove after testing
+    !state.liked && setTimeout(() => updateOptiState({ liked: true }), 600); // bubble animation duration
   };
   const handleOptimisticLike = (curr: LikeState, opti: LikeState): LikeState => ({
     liked: opti.liked,
