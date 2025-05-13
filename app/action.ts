@@ -14,10 +14,10 @@ export type LikeState = {
     try {
       console.log('setLikedAction', state, payload);
       await new Promise(resolve => setTimeout(resolve, 1000));
-      if (payload.error) throw new Error();
+      if (payload.error) throw new Error(payload.error as string);
       return { liked: !state.liked };
     } catch (e) {
       console.error(e);
-      return { liked: state.liked, error: payload.error };
+      return { liked: state.liked, error: (e as Error).message };
     }
   }
